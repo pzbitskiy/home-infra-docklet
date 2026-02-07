@@ -12,7 +12,9 @@ namespace HomeInfra {
         PARTIAL,
         /** All monitored hosts are unreachable. */
         ALL_DOWN,
-        /** Not on the home network or no hosts configured. */
+        /** Not on the home network. */
+        AWAY,
+        /** Initial/unknown state (no checks run yet). */
         UNKNOWN
     }
 
@@ -97,7 +99,11 @@ namespace HomeInfra {
             var thread_result = yield run_in_thread<CheckBundle?> (() => {
                 bool is_home = NetworkUtils.is_on_subnet (config.home_subnet);
 
-                if (!is_home || config.hosts.size == 0) {
+                if (!is_home) {
+                    return new CheckBundle (InfraStatus.AWAY, null, is_home);
+                }
+
+                if (config.hosts.size == 0) {
                     return new CheckBundle (InfraStatus.UNKNOWN, null, is_home);
                 }
 
@@ -172,6 +178,9 @@ namespace HomeInfra {
                     break;
                 case InfraStatus.ALL_DOWN:
                     icon_name = "status-error.svg";
+                    break;
+                case InfraStatus.AWAY:
+                    icon_name = "status-away.svg";
                     break;
                 default:
                     icon_name = "status-ok.svg";
@@ -264,12 +273,11 @@ namespace HomeInfra {
                 case InfraStatus.ALL_DOWN:
                     header_text = _("Status: All hosts down");
                     break;
+                case InfraStatus.AWAY:
+                    header_text = _("Status: Away from home network");
+                    break;
                 default:
-                    if (!on_home_network) {
-                        header_text = _("Status: Not on home network");
-                    } else {
-                        header_text = _("Status: Unknown");
-                    }
+                    header_text = _("Status: Unknown");
                     break;
             }
 

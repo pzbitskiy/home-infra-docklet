@@ -4,5 +4,6 @@
 		<file>icons/status-ok.svg</file>
 		<file>icons/status-warning.svg</file>
 		<file>icons/status-error.svg</file>
+		<file>icons/status-away.svg</file>
 	</gresource>
 </gresources>
