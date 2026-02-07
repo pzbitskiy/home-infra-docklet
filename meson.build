@@ -55,3 +55,24 @@ shared_module(
   install: true,
   install_dir: join_paths(get_option('libdir'), 'plank/docklets'),
 )
+
+# ---------- Tests ----------
+posix_dep = meson.get_compiler('vala').find_library('posix')
+
+test_config_parser = executable(
+  'test-config-parser',
+  'tests/test_config_parser.vala',
+  'ConfigManager.vala',
+  dependencies: [gee_dep, gio_dep, posix_dep],
+)
+
+test('config-parser', test_config_parser)
+
+test_network_utils = executable(
+  'test-network-utils',
+  'tests/test_network_utils.vala',
+  'NetworkUtils.vala',
+  dependencies: [gio_dep],
+)
+
+test('network-utils', test_network_utils)

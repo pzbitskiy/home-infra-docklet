@@ -45,6 +45,19 @@ namespace HomeInfra {
         }
 
         /**
+         * Creates a ConfigManager that reads from the given path.
+         * Does not auto-create a default config. Intended for testing.
+         */
+        public ConfigManager.with_path (string path) {
+            hosts = new Gee.ArrayList<MonitoredHost> ();
+            config_path = path;
+
+            if (GLib.FileUtils.test (config_path, GLib.FileTest.EXISTS)) {
+                load ();
+            }
+        }
+
+        /**
          * Returns the full path to the configuration file.
          */
         public string get_config_path () {

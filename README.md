@@ -40,6 +40,25 @@ meson compile -C build
 sudo meson install -C build
 ```
 
+## Running Tests
+
+```bash
+meson setup build
+meson compile -C build
+meson test -C build
+```
+
+For verbose output showing individual test cases:
+
+```bash
+meson test -C build -v
+```
+
+The test suite includes:
+
+- **config-parser** (15 tests) -- YAML config parsing: quoting styles, TCP port extraction, comments, interval clamping, reload behavior, edge cases.
+- **network-utils** (42 tests) -- IP-to-integer conversion, CIDR prefix masks, subnet matching arithmetic, and `is_on_subnet` integration tests using loopback.
+
 ## Setup
 
 After installation, open the Plank Reloaded settings, navigate to "Docklets", and drag and drop Home Infra onto your dock.
