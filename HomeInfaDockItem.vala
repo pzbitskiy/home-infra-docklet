@@ -183,7 +183,7 @@ namespace HomeInfra {
                     icon_name = "status-away.svg";
                     break;
                 default:
-                    icon_name = "status-ok.svg";
+                    icon_name = "docklet-icon.svg";
                     break;
             }
 

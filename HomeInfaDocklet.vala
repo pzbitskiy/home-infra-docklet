@@ -29,7 +29,7 @@ namespace HomeInfra {
         }
 
         public unowned string get_icon () {
-            return "resource://" + HomeInfra.G_RESOURCE_PATH + "/icons/status-ok.svg";
+            return "resource://" + HomeInfra.G_RESOURCE_PATH + "/icons/docklet-icon.svg";
         }
 
         public bool is_supported () {
